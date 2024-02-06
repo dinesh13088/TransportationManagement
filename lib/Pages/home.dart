@@ -6,6 +6,14 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'Home',
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+          centerTitle: true,
+          backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+        ),
       backgroundColor: Theme.of(context).colorScheme.primary, 
       body:  Padding(
           padding: const EdgeInsets.all(10),
