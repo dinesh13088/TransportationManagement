@@ -1,12 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:trackingapp/Pages/home.dart';
+import 'package:trackingapp/Pages/profile.dart';
+import 'package:trackingapp/Pages/setting.dart';
+import 'package:trackingapp/Pages/travel.dart';
+import 'package:trackingapp/Pages/travel_history.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
+  State<HomePage> createState() => _HomePageState();
+  
+}
+
+class _HomePageState extends State<HomePage> {
+   int currentPage =0;
+   List<Widget>pages =const [Home(),Travel(),TravelHistory(),Profile(),Setting()];
+  @override
   Widget build(BuildContext context) {
+   
     return Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.primary,
         appBar: AppBar(
           title: Text(
             'Home',
@@ -15,66 +28,24 @@ class HomePage extends StatelessWidget {
           centerTitle: true,
           backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  CircleAvatar(
-                    backgroundColor: Theme.of(context).colorScheme.primary,
-                    radius: 20,
-                    foregroundImage:
-                        const AssetImage('Assest/Images/dinesh.jpg'),
-                  ),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  const Text(
-                    'Good Morning !!\nDinesh Tamang',
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Container(
-                width: double.infinity,
-                height: 80,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(6)),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Costumer Id : 001',
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    const Text('\$ 1000'),
-                  ],
-                ),
-              )
-            ],
-          ),
-        ),
+        body:pages[currentPage],
         bottomNavigationBar: BottomNavigationBar(
-          
+          type: BottomNavigationBarType.fixed,
           showUnselectedLabels: true,
-        
-          currentIndex: 0,
+          currentIndex: currentPage,
+          onTap: (value)
+          {
+            setState(() {
+              currentPage =value;
+            });
+
+          },
           items:  [
-          BottomNavigationBarItem(icon: Icon(Icons.home,color: Theme.of(context).colorScheme.primary ,), label: 'Home',),
-          BottomNavigationBarItem(icon: Icon(Icons.bus_alert,color: Theme.of(context).colorScheme.primary,), label: 'Travel'),
-          BottomNavigationBarItem(icon: Icon(Icons.history,color: Theme.of(context).colorScheme.primary,), label: 'History'),
-          BottomNavigationBarItem(icon: Icon(Icons.person,color: Theme.of(context).colorScheme.primary,), label: 'Your Profile'),
-          BottomNavigationBarItem(icon: Icon(Icons.settings,color:Theme.of(context).colorScheme.primary ,), label: 'Setting')
+          BottomNavigationBarItem(icon: Icon(Icons.home,color: Theme.of(context).colorScheme.primary ,size: 25, ), label: 'Home',),
+          BottomNavigationBarItem(icon: Icon(Icons.bus_alert,color: Theme.of(context).colorScheme.primary,size: 25,), label: 'Travel'),
+          BottomNavigationBarItem(icon: Icon(Icons.history,color: Theme.of(context).colorScheme.primary,size: 25,), label: 'History'),
+          BottomNavigationBarItem(icon: Icon(Icons.person,color: Theme.of(context).colorScheme.primary,size: 25,), label: 'Your Profile'),
+          BottomNavigationBarItem(icon: Icon(Icons.settings,color:Theme.of(context).colorScheme.primary ,size: 25,), label: 'Setting')
        
         ]));
   }
